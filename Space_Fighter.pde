@@ -119,7 +119,6 @@ void keyPressed() {
     Right = true;
   }
 }
-//check if key released
 void keyReleased() {
   if (key == 'w') {
     Up = false;
