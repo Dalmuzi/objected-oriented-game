@@ -1,48 +1,53 @@
-class Player {
- 
-  float playerX = 200;
-  float playerY = 400;
- 
-  Player() {
+class Ship {
+  float x, y, vx, vy;
+  
+  boolean Up = false; 
+
+  boolean Down = false;
+
+  boolean Left = false; 
+
+  boolean Right = false;   
+  
+  int speed = 7;
+  
+  Ship() {
+    this.x = width/2;
+    this.y = height - height/4;
+    this.vy = 0;
+    this.vx = 0;
   }
- 
-  void Playership() {
-    stroke(17, 241, 252);
-    strokeWeight(1);
-    line(playerX, playerY, playerX+20, playerY+30);
-    line(playerX+10, playerY+15, playerX, playerY+30);
-    line(playerX, playerY+30, playerX-10, playerY+15);
-    line(playerX-20, playerY+30, playerX, playerY);
-  }
- 
-  void display() {
-    if (!Right && !Left) {
-      Playership();
-    }else if (Left) {
-      Playership();
-    } else if (Right) {
-      Playership();
+  
+  void drawShip() {
+    if (Up == true) {
+      vy= -speed;
+    } else if (Down == true) {
+      vy = speed;
+    } else {
+      y -= vy;
+      vy = 0;
     }
-  }
-  void move() {
     
-    //constraints
-    playerX = constrain(playerX, 0, width);
-    playerY = constrain(playerY, 0, height-20);
+    if (Left == true) {
+      vx= -speed;
+    } else if (Right == true) {
+      vx= speed;
+    } else {
+      vx=0;
+    }
     
-    if (Up) {
-      playerY = playerY - 6;
+    x += vx;
+    
+    if (y-20>=50 && y<height) {
+      y += vy;
     }
-    if (Down) {
-      playerY = playerY + 6;
-    }
-    if (Left) {
-      playerX = playerX - 6;
-    }
-    if (Right) {
-      playerX = playerX + 6;
-    }
-    display();
+    
+    
+    if (x+10 < 0)
+      x = width+9;
+    
+    if (x-10 > width) x = -9;
+    
+    triangle(x, y-10, x-7, y, x+7, y);
   }
 }
- 
