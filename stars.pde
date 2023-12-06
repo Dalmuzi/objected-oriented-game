@@ -1,18 +1,17 @@
 class Star {  
-  PVector smallStar=new PVector(0,0);
- 
-Star() {
-  smallStar.x=random(width);
-  smallStar.y=random(height-50);
-}
+  float x, y;
+  int vy;
   
-void display(){
-    beginShape();
- fill(255,255,255,random(100,200));
- noStroke();
- ellipse(smallStar.x,smallStar.y, 2, 2);
- 
- endShape(CLOSE);
-}
+  Star() {
+    this.x = random(width);
+    this.y = 0;
+    this.vy = 8;
+  }
+  
+  void displayStar() {
+    y+=vy;
+    point(x,y);
+    
+  }
  
 }
