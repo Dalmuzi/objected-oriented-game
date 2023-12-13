@@ -53,6 +53,8 @@ void Background() {
       Bullet bullet = bullets.get(b);
       if (a.collision(bullet) == true) {
 
+          
+        score++;
         asteroids.remove(a);
         bullets.remove(bullet);
         i--;
@@ -66,7 +68,7 @@ void Background() {
  
 void displayAsteroid() {
   if (frameCount % asteroidFrequency == 0) {
-    asteroids.add(new Asteroid(random(150, 250)));
+    asteroids.add(new Asteroid(random(123, 2)));
   }
   for (int i = 0; i<asteroids.size(); i++) {
     Asteroid currentAsteroid = asteroids.get(i);
@@ -91,7 +93,7 @@ void displayAsteroid() {
  
  void displayStar() {
   strokeWeight(8);
-  stroke(17, 241, 252);
+  stroke(255);
   if (frameCount % frequency == 0) {
     Star myStar = new Star();
     stars.add(myStar);
