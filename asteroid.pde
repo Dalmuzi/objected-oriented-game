@@ -1,46 +1,66 @@
-class Asteroid{
-  float size, x, y; 
-  int vy = 5; 
-  
-  Asteroid(float size){
-      this.size = size;
-    this.x = random(width);
-    this.y = -size;
+class Asteroid {
+ 
+  PVector location;
+  PVector velocity;
+  int radius;
+  float Speed;
+  float increase;
+ 
+  Asteroid() {
+    location = new PVector(random(width), random(-400, -10));
+    velocity = new PVector(0.0, random(1, 4));
+    radius=11;
+    increase=3;
   }
-  
-  void displayAsteroid(){
-    fill(61);
-    stroke(61);
-    ellipse(x, y, 20, 20);
-    y+=vy;
+ 
+  void display() {
+    noStroke();
+    fill(150);
+    ellipse(location.x, location.y, 20, 20);
   }
-  
-boolean collision(Object other) {
-    if (other instanceof Ship) {
-      Ship player = (Ship) other;
-      float apothem = 10 * tan(60);
-      float distance = dist(x, y, player.x, player.y-apothem);
-      if (distance < size/2 + apothem + 10) {
-        fill(255, 0, 0, 100);
-        rect(0, 0, width, height);
-        fill(255);
-        
-        return true;
-      }
-    } else if (other instanceof Bullet) {
-      Bullet bullet = (Bullet) other;
-      float distance = dist(x, y, bullet.x, bullet.y); 
-      println(distance);
-      if (distance <= size/2 + bullet.size/2 ) {
-        fill(0, 255, 0, 100);
-        rect(0, 0, width, height);
-        fill(255);
-        
+ 
+  void move() {
+    location.y=(location.y+velocity.y)+Speed;
+    
+    if (destroy()) {
+      destroyed();
+    }
+  }
+ 
+  void reset() {
+    if (location.y>height+20) {
+      location.y = random(-400, -10);
+      location.x = random(0, width);
+    }
+  }
+ 
+  void increaseSpeed() {
+    if (score>50 && score<99) {
+      Speed=increase;
+    } else if (score>50 && score<99) {
+      Speed=increase*2;
+    } else if (score>100 && score<149) {
+      Speed=increase*3;
+    } else if (score>150) {
+      Speed=increase*4;
+    }
+  }
+ 
+  void destroyed() {
+    location.y = random(-400, -10);
+    location.x = random(0, width);
+    score++;
+  }
+ 
+  boolean destroy() {
+    for (Bullet bullets : bullet) {
+      if (location.dist(bullets.location) < radius) {
+        bullets.destroyed();
         return true;
       }
     }
     return false;
-    
   }
+  
   
 }

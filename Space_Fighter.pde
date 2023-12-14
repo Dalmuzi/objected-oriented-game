@@ -1,34 +1,66 @@
 int frequency = 10;
 
-Ship player;
+Ship ship;
+Star[] twinkle = new Star[100];
+Asteroid[] asteroid = new Asteroid[20];
+Bullet[] bullet = new Bullet[50];
 
-ArrayList<Star> stars = new ArrayList<Star>();
+int bulletindex;
 
-ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+boolean fire;
 
-ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
-int asteroidFrequency = 60;
+String s = "Use WASD to control and press SPACE to shoot.";
 
+boolean gameOver = false;
+PImage gameOverScreen;
 
+Timer startTimer;
+ 
+  
+boolean Up = false; 
+
+boolean Down = false;
+
+boolean Left = false; 
+
+boolean Right = false;   
+  
 int score;
 
 void setup(){
   size (400, 400);
   frameRate(60);
-  player = new Ship();
-  score = 0;
-
+  ship = new Ship();
+  enemyCreate();
+  startTimer = new Timer(0);
+    for (int i=0; i <100; i++) {
+    twinkle[i] = new Star();
+  }
+  gameOverScreen = loadImage("data/2d2ba26dd702a4e6.jpg");
 }
 
 void draw (){
-  background (0, 14, 42);
+ if(!gameOver){
+     background (0, 14, 42);
+    for (int i=0; i <100; i++) {
+    twinkle[i].display();
+  }
   Background();
-  displayStar();
-  player.drawShip();
-  displayBullet();
-  displayAsteroid();
+  enemySpawn();
+  ship.move();
+  ship.shoot();
+  ship.drawShip();
+  ship.display();
+  score();
+  startTimer.countUp();
+  println(s);
+  text(startTimer.getTime(), 20, 20);
+  fill(255);
+  textSize(20);
+ }else{
+   image(gameOverScreen, 0, 0);
+ }
 }
-
 
 
 void Background() {
@@ -44,95 +76,66 @@ void Background() {
 }
  
  
- void collision() {
-  for (int i = 0; i < asteroids.size(); i++) {
-    Asteroid a = asteroids.get(i);
-    if (a.collision(player) == true) {
-    }
-    for (int b = 0; b < bullets.size(); b++) {
-      Bullet bullet = bullets.get(b);
-      if (a.collision(bullet) == true) {
-
-          
-        score++;
-        asteroids.remove(a);
-        bullets.remove(bullet);
-        i--;
-        b--;
-      }
-    }
+ void score(){
+    fill(255);
+    text("Score: " +score, 30, 50);
+  }
+ 
+ 
+ 
+void enemyCreate() {
+  for (int i = 0; i < asteroid.length; i++) {
+    asteroid[i] = new Asteroid();
   }
 }
  
- 
- 
-void displayAsteroid() {
-  if (frameCount % asteroidFrequency == 0) {
-    asteroids.add(new Asteroid(random(123, 2)));
-  }
-  for (int i = 0; i<asteroids.size(); i++) {
-    Asteroid currentAsteroid = asteroids.get(i);
-    currentAsteroid.displayAsteroid();
-    if (currentAsteroid.y > height + currentAsteroid.size) {
-      asteroids.remove(currentAsteroid);
-      i--;
+ void enemySpawn() {
+  for (int i = 0; i < asteroid.length; i++) {
+    asteroid[i].move();
+    asteroid[i].reset();
+    asteroid[i].display();
+    asteroid[i].increaseSpeed();
+    if(ship.collision(asteroid[i])) {
+      gameOver();
+      score = 0;
     }
   }
 }
-
- 
- 
- 
- void displayBullet() {
-  for (int i = 0; i<bullets.size(); i++) {
-    bullets.get(i).displayBullet();
-  }
-}
- 
- 
- 
- void displayStar() {
-  strokeWeight(8);
-  stroke(255);
-  if (frameCount % frequency == 0) {
-    Star myStar = new Star();
-    stars.add(myStar);
-  }
-  for (int i = 0; i<stars.size(); i++) {
-    Star currentStar = stars.get(i);
-    currentStar.displayStar();
-  }
-}
- 
  
 
 void keyPressed() {
   if (key == 'w') {
-    player.Up = true;
+    Up = true;
   } else if (key == 's') {
-    player.Down = true;
+    Down = true;
   } else if (key =='a') {
-    player.Left = true;
+    Left = true;
   } else if (key =='d') {
-    player.Right = true;
+    Right = true;
   }else if (key == ' '){
-    Bullet b = new Bullet(player);
-    bullets.add(b);
+    fire = true;
+  }else if (key == 'r' && gameOver){
+    setup();
+    gameOver = false;
   }
 }
 
-
+void gameOver(){
+  image(gameOverScreen, 0, 0);
+}
 
 
 void keyReleased() {
   if (key == 'w') {
-    player.Up = false;
+    Up = false;
   } else if (key == 's') {
-    player.Down = false;
+    Down = false;
   } else if (key =='a') {
-    player.Left = false;
+    Left = false;
   } else if (key =='d') {
-    player.Right = false;
+    Right = false;
+  }else if (key == ' '){
+    fire = false;
   }
   
 }

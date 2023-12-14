@@ -1,19 +1,30 @@
 class Bullet {
-  float x, y, vy;
-  float size;
-  
-  Bullet(Ship player) {
-    this.x = player.x;
-    this.y = player.y - 15;
-    this.vy = -15;
-    this.size = 5;
+ 
+  PVector location;
+  PVector velocity;
+  int radius;
+  Bullet(float x, float y) {
+    location = new PVector(x, y);
+    velocity = new PVector(0.0, 5);
+    radius=4;
   }
-  
-  void displayBullet() {
-    fill(255);
-    ellipse(x, y, size, size);
-    y+=vy;
+ 
+  void display() {
+    fill(200, 0, 0);
+    ellipse(location.x, location.y, 8, 8);
+    if (location.y < -10) {
+      location.y=height;
+      location.x=0-width;
+      velocity.y=0;
+    }
   }
-    
-    
+ 
+  void move() {
+    location.sub(velocity);
+  }
+ 
+  void destroyed() {
+    velocity.y=0;
+    location.y=height+100;
+  }
 }
