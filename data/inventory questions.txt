@@ -1,0 +1,51 @@
+What’s the difference between a for loop and a while loop?
+
+In Processing, a for loop is when you want to know how many times it loops. It has a clear structure with an initial setup, a condition, and an increment or decrement. However, a while loop is more flexible and useful when you don't know the exact number of repetitions beforehand. It relies on a condition, and the loop continues as long as the condition is true. While loops are handy when you need the loop to run until a specific condition is met or when the termination condition is more complex. 
+
+
+
+What’s the difference between parameters and arguments?
+
+In Processing, parameters are like placeholders, defining what kind of information the function needs. On the other hand, arguments are the actual values or data that you provide to those parameters when you use the function.
+
+
+
+What’s the difference between a class and an object?
+
+In Processing, a class is a set of instructions for creating something, and an object is the actual thing you create using the class. The class defines the properties (characteristics) and behaviors (actions) of the object. 
+
+
+
+What is a constructor function? What does it do and when?
+
+In Processing, a constructor function is a set of instructions that creates and sets up an object when it is first made from a class. You use a constructor when you want to ensure that every new object of a class starts with certain values or settings.
+
+
+
+Why should each class have its own tab in Processing?
+
+In Processing, giving each class its own tab is like organizing your code into separate sections for different tasks. It helps keep things neat and makes it easier to understand and edit your code. It's a way to manage and find specific pieces of code more efficiently, making your overall coding experience smoother and more organized.
+
+
+
+What’s the difference between an array and an ArrayList?
+
+In Processing, arrays have a fixed size and store specific data types efficiently, while ArrayLists are dynamic and can change in size during the program. Arrays are better when the size is known and constant, while ArrayLists offer flexible changing sizes and working with different data types. Arrays use a fixed set of methods and require copying for resizing, while ArrayLists provide more versatile methods like add() and remove(). 
+
+
+
+Why would you want to go through a list backwards, decrementing the index?
+
+In Processing, going through a list backward and decreasing the index can be useful when you want to start from the end of the list and work towards the beginning. This can be handy in situations where you need to access or modify elements in reverse order. 
+
+
+
+When should you use PVector instead of float variables?
+
+In Processing, you should use PVector instead of float variables when dealing with both position and movement in two or three dimensions. PVector is like a helpful tool that bundles together x, y, and z values, making it easier to handle positions and movements in space. It simplifies the code and allows for convenient operations like addition and subtraction of vectors.
+
+
+
+What is a normalized vector, why is it useful?
+
+In Processing, a normalized vector is like a special kind of arrow that keeps the same direction but has a length of 1. It's useful because it simplifies calculations and ensures consistent scaling.

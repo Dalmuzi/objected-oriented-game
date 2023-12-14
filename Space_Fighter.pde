@@ -114,9 +114,6 @@ void keyPressed() {
     Right = true;
   }else if (key == ' '){
     fire = true;
-  }else if (key == 'r' && gameOver){
-    setup();
-    gameOver = false;
   }
 }
 
